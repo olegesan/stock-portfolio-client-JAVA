@@ -4,26 +4,20 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Portfolio {
-    private List<String> stocksSymbols;
+//    private List<String> stocksSymbols;
     private HashMap<String,Stock> stocks;
     private BigDecimal worth;
 
     public Portfolio(){
-        stocksSymbols = new ArrayList<>();
+//        stocksSymbols = new ArrayList<>();
         stocks = new HashMap<>();
         worth = BigDecimal.valueOf(0L);
     }
 
 
-    public List<String> getStocksSymbols() {
-        return stocksSymbols;
-    }
-
-    public void setStocksSymbols(List<String> stocksSymbols) {
-        this.stocksSymbols = stocksSymbols;
-    }
 
     public HashMap<String, Stock> getStocks() {
         return stocks;
@@ -50,7 +44,7 @@ public class Portfolio {
     }
     public void addStock(Stock stock) {
         String symbol = stock.getTicker();
-        stocksSymbols.add(symbol);
+//        stocksSymbols.add(symbol);
         stocks.put(symbol,stock );
         BigDecimal newWorth = worth.add(BigDecimal.valueOf(stock.getSahres()*stock.getPrice()));
         setWorth(newWorth);
@@ -63,7 +57,9 @@ public class Portfolio {
     }
 
     public void removeStock(String symbol) {
-        if(stocks.get(symbol) != null){
+        Stock stock =stocks.get(symbol);
+        if( stock != null){
+            setWorth(calculateWorth(BigDecimal.valueOf(0),stock.getWorth()));
             stocks.remove(symbol);
             return;
         }
@@ -80,7 +76,7 @@ public class Portfolio {
     public void setShares(String symbol, long amount) {
         Stock stock = this.getStock(symbol);
         if(stock != null){
-            setWorth(calculateWorth(BigDecimal.valueOf(amount*stock.getPrice()), BigDecimal.valueOf(stock.getSahres()*stock.getPrice())));
+            setWorth(calculateWorth(BigDecimal.valueOf(amount*stock.getPrice()), stock.getWorth()));
             stock.setShares(amount);
         }
     }
@@ -91,5 +87,21 @@ public class Portfolio {
             return 0;
         }
         return stock.getSahres();
+    }
+
+    public void updateStockPrice(String symbol, int newPrice) {
+        Stock stock = this.getStock(symbol);
+        BigDecimal nPrice = BigDecimal.valueOf(newPrice);
+        if(stock != null){
+            setWorth(calculateWorth(nPrice.multiply(BigDecimal.valueOf(stock.getSahres())), stock.getWorth()));
+            stock.setPrice(newPrice);
+        }
+    }
+    public double getCalculatedWorth(){
+        BigDecimal returnWorth = BigDecimal.valueOf(0);
+        for(Map.Entry<String, Stock> pair: stocks.entrySet()){
+            returnWorth = returnWorth.add(pair.getValue().getWorth());
+        }
+        return returnWorth.doubleValue();
     }
 }

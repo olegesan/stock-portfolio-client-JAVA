@@ -57,4 +57,27 @@ public class PortfolioTest {
         Assert.assertEquals("Checking updated worth of portfolio: ",8039.8 , pf.getWorth(), 2);
     }
 
+    @Test
+    public void updateStockPriceTest(){
+            pf.updateStockPrice("GME", 140);
+            Assert.assertEquals("Testing updated worth ",2920, pf.getWorth(), 2 );
+            Assert.assertEquals("Testing update stock price", 140, pf.getStock("GME").getPrice(), 2);
+    }
+    @Test
+    public void updateNoNStockPriceTest(){
+            pf.updateStockPrice("PPE", 140);
+            Assert.assertEquals("Testing updated worth ",5139.8, pf.getWorth(), 2 );
+        Assert.assertNull("Testing update stock price", pf.getStock("PPE"));
+    }
+
+    @Test
+    public void removeStockPortfolioWorthUpdateTest(){
+        pf.removeStock("GME");
+        Assert.assertEquals("Testing updated worth ",120, pf.getWorth(), 2 );
+    }
+    @Test
+    public void comparingWorthToCalculatedWorth(){
+        Assert.assertEquals("Testing calculated worth with fast worth ",pf.getCalculatedWorth(), pf.getWorth(), 2);
+    }
+
 }

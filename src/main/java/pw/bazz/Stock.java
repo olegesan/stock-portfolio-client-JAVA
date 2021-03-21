@@ -38,4 +38,10 @@ public class Stock {
     public void setShares(long shares) {
         this.shares = shares;
     }
+
+    public BigDecimal getWorth(){
+        return price.multiply(BigDecimal.valueOf(shares));
+    }
+
+
 }
