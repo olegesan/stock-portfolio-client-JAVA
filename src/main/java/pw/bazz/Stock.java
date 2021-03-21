@@ -18,4 +18,8 @@ public class Stock {
     public String getTicker() {
         return ticker;
     }
+
+    public void setPrice(double newPrice) {
+        price = BigDecimal.valueOf(newPrice);
+    }
 }

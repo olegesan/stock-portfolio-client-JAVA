@@ -18,6 +18,12 @@ public class StockTest {
 
     @Test
     public void stockTickerTest(){
-        Assert.assertEquals("Testing price to equal actual price: ", "GME", gme.getTicker());
+        Assert.assertEquals("Testing ticker to equal actual ticker: ", "GME", gme.getTicker());
+    }
+
+    @Test
+    public void updateStockPriceTest(){
+        gme.setPrice(360.01);
+        Assert.assertEquals("Testing price to equal new price: ", 360.01, gme.getPrice(), 2);
     }
 }
