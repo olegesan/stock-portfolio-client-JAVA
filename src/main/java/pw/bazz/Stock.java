@@ -18,6 +18,12 @@ public class Stock {
         this.shares = 0L;
     }
 
+    public Stock(String ticker, long shares){
+        this.ticker = ticker;
+        this.shares = shares;
+        fetchPrice();
+    }
+
     public double getPrice() {
         return price.doubleValue();
     }
@@ -30,6 +36,9 @@ public class Stock {
         price = BigDecimal.valueOf(newPrice);
     }
 
+    public void fetchPrice(){
+        setPrice(StockService.getPrice(ticker).doubleValue());
+    }
 
     public long getSahres() {
         return shares;

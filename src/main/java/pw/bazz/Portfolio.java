@@ -1,7 +1,8 @@
 package pw.bazz;
 
+import java.io.File;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import org.apache.commons.io.FileUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,20 @@ public class Portfolio {
         worth = BigDecimal.valueOf(0L);
     }
 
+    public static Portfolio loadPortfolio(String pfName) {
+        File f = new File(pfName);
+        String pfString = "";
+        try{
+            FileUtils.readFileToString(f, pfString);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return new Portfolio();
+    }
+
+    public static Portfolio parsePortfolio(String pfString){
+        return new Portfolio();
+    }
 
 
     public HashMap<String, Stock> getStocks() {
@@ -25,10 +40,6 @@ public class Portfolio {
 
     public void setStocks(HashMap<String, Stock> stocks) {
         this.stocks = stocks;
-    }
-
-    public double getWorth() {
-        return worth.doubleValue();
     }
 
     public void setWorth(BigDecimal worth) {
@@ -103,5 +114,11 @@ public class Portfolio {
             returnWorth = returnWorth.add(pair.getValue().getWorth());
         }
         return returnWorth.doubleValue();
+    }
+
+    public void refreshPortfolio(){
+        for(Map.Entry<String, Stock> pair: stocks.entrySet()){
+            pair.getValue().fetchPrice();
+        }
     }
 }

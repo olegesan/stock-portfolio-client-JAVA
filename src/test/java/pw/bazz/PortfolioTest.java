@@ -15,9 +15,9 @@ public class PortfolioTest {
     @Before
     public void setUp(){
         pf = new Portfolio();
-        gme = new Stock("GME", 250.99, 20);
-        aapl = new Stock("AAPL", 120, 1);
-        msft = new Stock("MSFT", 290);
+        gme = new Stock("GME", 20);
+        aapl = new Stock("AAPL", 1);
+        msft = new Stock("MSFT", 0);
         pf.addStock(gme);
         pf.addBunchStock(Arrays.asList(aapl, msft));
 
@@ -43,7 +43,7 @@ public class PortfolioTest {
 
     @Test
     public void testPortfolioWorth(){
-        Assert.assertEquals("Checking worth to be ",5139.8, pf.getWorth(),2);
+        Assert.assertTrue("Checking worth to be ", pf.getCalculatedWorth()>0);
     }
 
     @Test
@@ -53,31 +53,37 @@ public class PortfolioTest {
     }
     @Test
     public void testUpdateWorth(){
+        double worth = pf.getCalculatedWorth();
         pf.setShares("MSFT", 10);
-        Assert.assertEquals("Checking updated worth of portfolio: ",8039.8 , pf.getWorth(), 2);
+        Assert.assertEquals("Checking updated worth of portfolio: ",worth+(pf.getStock("MSFT").getPrice()*10) , pf.getCalculatedWorth(), 2);
     }
 
     @Test
     public void updateStockPriceTest(){
             pf.updateStockPrice("GME", 140);
-            Assert.assertEquals("Testing updated worth ",2920, pf.getWorth(), 2 );
+            Assert.assertEquals("Testing updated worth ",2920, pf.getCalculatedWorth(), 2 );
             Assert.assertEquals("Testing update stock price", 140, pf.getStock("GME").getPrice(), 2);
     }
     @Test
     public void updateNoNStockPriceTest(){
+        double worth = pf.getCalculatedWorth();
             pf.updateStockPrice("PPE", 140);
-            Assert.assertEquals("Testing updated worth ",5139.8, pf.getWorth(), 2 );
+            Assert.assertEquals("Testing updated worth ",worth, pf.getCalculatedWorth(), 2 );
         Assert.assertNull("Testing update stock price", pf.getStock("PPE"));
     }
 
     @Test
     public void removeStockPortfolioWorthUpdateTest(){
         pf.removeStock("GME");
-        Assert.assertEquals("Testing updated worth ",120, pf.getWorth(), 2 );
+        Assert.assertEquals("Testing updated worth ",pf.getStock("AAPL").getWorth().doubleValue(), pf.getCalculatedWorth(), 2 );
     }
     @Test
     public void comparingWorthToCalculatedWorth(){
-        Assert.assertEquals("Testing calculated worth with fast worth ",pf.getCalculatedWorth(), pf.getWorth(), 2);
+        Assert.assertEquals("Testing calculated worth with fast worth ",pf.getCalculatedWorth(), pf.getCalculatedWorth(), 2);
     }
+
+
+
+
 
 }
