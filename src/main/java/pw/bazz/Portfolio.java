@@ -3,6 +3,8 @@ package pw.bazz;
 import java.io.File;
 import java.math.BigDecimal;
 import org.apache.commons.io.FileUtils;
+
+import javax.sound.sampled.Port;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,18 +21,29 @@ public class Portfolio {
     }
 
     public static Portfolio loadPortfolio(String pfName) {
-        File f = new File(pfName);
-        String pfString = "";
+        File f = new File(pfName+".txt");
+        Portfolio pf = new Portfolio();
         try{
-            FileUtils.readFileToString(f, pfString);
+           String pfString = FileUtils.readFileToString(f, "UTF-8");
+           pf = parsePortfolio(pfString);
+
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return new Portfolio();
+        return pf;
     }
 
     public static Portfolio parsePortfolio(String pfString){
-        return new Portfolio();
+        Portfolio pf = new Portfolio();
+        String[] pairs = pfString.split(",");
+        for(String pair: pairs){
+            String[] symbol_shares = pair.split(":");
+            String symbol = symbol_shares[0];
+            long shares = Long.parseLong(symbol_shares[1]);
+            Stock stock = new Stock(symbol, shares);
+            pf.addStock(stock);
+        }
+        return pf;
     }
 
 

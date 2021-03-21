@@ -82,6 +82,23 @@ public class PortfolioTest {
         Assert.assertEquals("Testing calculated worth with fast worth ",pf.getCalculatedWorth(), pf.getCalculatedWorth(), 2);
     }
 
+    @Test
+    public void testLoadPortfolioFromFile(){
+        pf = Portfolio.loadPortfolio("bazz");
+        Assert.assertEquals("Loaded correct amount of stock for bazz test", 4, pf.getStocks().size());
+    }
+
+    @Test
+    public void testLoadPortfolioStock(){
+        pf = Portfolio.loadPortfolio("bazz");
+        Assert.assertNotNull("Loaded correct stock", pf.getStock("YNDX"));
+    }
+    @Test
+    public void testLoadPortfolioNonStock(){
+        pf = Portfolio.loadPortfolio("bazz");
+        Assert.assertNull("Did not load incorrect stock", pf.getStock("TSLA"));
+    }
+
 
 
 
