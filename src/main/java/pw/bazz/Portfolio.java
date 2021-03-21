@@ -134,4 +134,22 @@ public class Portfolio {
             pair.getValue().fetchPrice();
         }
     }
+
+    public void savePortfolio(String pfName) {
+        StringBuilder pfString = new StringBuilder();
+
+        File f = new File(pfName+".txt");
+        for(Map.Entry<String, Stock> pair: stocks.entrySet()){
+            String symbol = pair.getKey();
+            String shares = String.valueOf(pair.getValue().getSahres());
+            pfString.append(String.format("%s:%s,",symbol,shares));
+        }
+        try{
+
+        FileUtils.writeStringToFile(f,pfString.toString(),"UTF-8");
+        }
+        catch(Exception err){
+            System.out.println(err.getMessage());
+        }
+    }
 }
