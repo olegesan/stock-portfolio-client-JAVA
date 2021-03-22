@@ -4,6 +4,8 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pw.bazz.Model.Portfolio;
+import pw.bazz.Model.Stock;
 
 import java.io.File;
 import java.util.Arrays;

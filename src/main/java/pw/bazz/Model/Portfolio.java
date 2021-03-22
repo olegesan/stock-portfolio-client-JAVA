@@ -1,10 +1,9 @@
-package pw.bazz;
+package pw.bazz.Model;
 
 import java.io.File;
 import java.math.BigDecimal;
 import org.apache.commons.io.FileUtils;
 
-import javax.sound.sampled.Port;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -147,8 +146,10 @@ public class Portfolio {
         try{
 
         FileUtils.writeStringToFile(f,pfString.toString(),"UTF-8");
+            System.out.println("Saved Successfully");
         }
         catch(Exception err){
+            System.out.println("in save file");
             System.out.println(err.getMessage());
         }
     }

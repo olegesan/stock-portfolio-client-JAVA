@@ -1,4 +1,6 @@
-package pw.bazz;
+package pw.bazz.Model;
+
+import pw.bazz.Controller.StockService;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package pw.bazz;
+package pw.bazz.Controller;
 
 import yahoofinance.YahooFinance;
 

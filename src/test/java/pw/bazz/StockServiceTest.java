@@ -2,6 +2,7 @@ package pw.bazz;
 
 import org.junit.Assert;
 import org.junit.Test;
+import pw.bazz.Controller.StockService;
 
 import java.math.BigDecimal;
 
