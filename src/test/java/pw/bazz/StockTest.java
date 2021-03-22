@@ -9,7 +9,7 @@ public class StockTest {
 
     public static Stock gme;
     @Before
-    public static void setUpStock(){
+    public  void setUpStock(){
         gme = new Stock("GME", 250.99);
     }
     @Test

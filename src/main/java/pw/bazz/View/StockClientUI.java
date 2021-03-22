@@ -1,3 +1,9 @@
+/**
+ * CLI component that display data to the client and takes input
+ * BEWARE: no data validation is done
+ * @author Oleg Bazylnikov
+ * @date 03/22/2021
+ */
 package pw.bazz.View;
 
 import pw.bazz.Model.Portfolio;
@@ -10,6 +16,11 @@ import java.util.Scanner;
 
 public class StockClientUI {
     private Scanner input = new Scanner(System.in);
+
+    /**
+     * displays main menu
+     * TODO: add a method to display welcome and main menu separately
+     */
     public void displayMainMenu(){
         System.out.println("#####################################");
         System.out.println("Welcome to Stock Portfolio Shell App");
@@ -19,6 +30,11 @@ public class StockClientUI {
         System.out.println("3. Exit");
         System.out.println();
     }
+
+    /**
+     * display option available in portfolio state once user is loaded
+     * @param user current one
+     */
     public void displayPortfolioMenu(User user){
         System.out.printf("Username: %s Email: %s\n", user.getName(), user.getEmail());
         System.out.println("Portfolio Menu:");
@@ -31,12 +47,26 @@ public class StockClientUI {
         System.out.println("7. Save");
         System.out.println("8. Back");
     }
+
+    /**
+     * when user turned on the alarm
+     * @param email that the action was done one
+     */
     public void displayAlarmOn(String email){
         System.out.println("Alarm to "+email+" turned on successfully");
     }
+    /**
+     * when user turned off the alarm
+     * @param email that the action was done one
+     */
     public void displayAlarmOff(String email){
         System.out.println("Alarm to "+email+" turned off successfully");
     }
+
+    /**
+     * displays portfolio infromation with current time and up to date prices
+     * @param pf portfolio object of the user
+     */
     public void displayPortfolio(Portfolio pf){
         System.out.println("Loading...");
         pf.refreshPortfolio();
@@ -56,6 +86,11 @@ public class StockClientUI {
         System.out.println("#####################################");
     }
 
+    /**
+     * accepts symbol and number of shares from user with prompting help
+     * TODO: data validation and error handling
+     * @return stock object based on user input
+     */
     public Stock addStockDialog(){
         System.out.println("Enter Ticker: ");
         String ticker = input.nextLine();
@@ -64,6 +99,11 @@ public class StockClientUI {
         return new Stock(ticker,shares);
     }
 
+    /**
+     * dialog to get a ticker form the user
+     * TODO: data validation and error handling
+     * @return String representing a ticker
+     */
     public String getTickerDialog() {
         System.out.println("Enter Stock Ticker: ");
         String ticker = input.nextLine();

@@ -78,13 +78,6 @@ public class PortfolioTest {
     }
 
     @Test
-    public void updateStockPriceTest() {
-        pf.updateStockPrice("GME", 140);
-        Assert.assertEquals("Testing updated worth ", 2920, pf.getCalculatedWorth(), 2);
-        Assert.assertEquals("Testing update stock price", 140, pf.getStock("GME").getPrice(), 2);
-    }
-
-    @Test
     public void updateNoNStockPriceTest() {
         double worth = pf.getCalculatedWorth();
         pf.updateStockPrice("PPE", 140);
@@ -118,7 +111,7 @@ public class PortfolioTest {
     @Test
     public void testLoadPortfolioNonStock() {
         pf = Portfolio.loadPortfolio("bazz");
-        Assert.assertNull("Did not load incorrect stock", pf.getStock("TSLA"));
+        Assert.assertNull("Did not load incorrect stock", pf.getStock("PPE"));
     }
 
     @Test

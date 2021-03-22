@@ -1,3 +1,9 @@
+/**
+ * Alert manager helps to manage alert logic such as adding/removing user from alert list,
+ *  as well as loading all users that are on alert list.
+ * @author Oleg Bazylnikov
+ * @date 03/22/2021
+ */
 package pw.bazz.Controller;
 
 import org.apache.commons.io.FileUtils;
@@ -8,6 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlertManager {
+
+    /**
+     * Adds user to the alert list. Saves it email and username in alerts.txt
+     * @param user that needs to be saved
+     */
     public static void addUser(User user){
         File f = new File("alerts.txt");
         try{
@@ -22,6 +33,11 @@ public class AlertManager {
             System.out.println(err.getMessage());
         }
     }
+
+    /**
+     * Removes user from the alert list in alerts.txt
+     * @param user that needs to be removed from the alerts list
+     */
     public static void removeUser(User user){
         File f = new File("alerts.txt");
         try{
@@ -34,6 +50,11 @@ public class AlertManager {
             System.out.println(err.getMessage());
         }
     }
+
+    /**
+     * loads all the users that are in alerts.txt in order to send alerts
+     * @return a list of users that are in alerts.txt with their portfolio loaded up
+     */
     public static List<User> loadAlertUsers(){
         File f = new File("alerts.txt");
         List<User> users = new ArrayList<>();
@@ -50,4 +71,5 @@ public class AlertManager {
         }
         return users;
     }
+
 }

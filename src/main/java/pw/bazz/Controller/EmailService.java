@@ -1,3 +1,10 @@
+/**
+ * Handles all the logic with emails
+ * sending, composing
+ * @author Oleg Bazylnikov
+ * @date 03/22/2021
+ */
+
 package pw.bazz.Controller;
 
 
@@ -8,12 +15,10 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
-import org.apache.commons.io.FileUtils;
 import pw.bazz.Model.Portfolio;
 import pw.bazz.Model.Stock;
 import pw.bazz.Model.User;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +28,12 @@ import java.util.Map;
 public class EmailService {
 
 
+    /**
+     * Sends email to the specified email
+     * @param emailTo reciever
+     * @param body of the email, has the username, time, portfolio info
+     * @return status code (used for testing) 202 when successfully sent an email
+     */
     public static int sendEmail(String emailTo, String body) {
         Email from = new Email("obazylnikov@ggc.edu");
         String subject = "Sending with SendGrid is Fun";
@@ -49,6 +60,12 @@ public class EmailService {
 
     }
 
+    /**
+     * Creates body for the email with portfolio information + formatted
+     * @param username of the user
+     * @param pf portfolio object with user stocks information
+     * @return formatted string with email ready body
+     */
     public static String composeBody(String username, Portfolio pf) {
         StringBuilder sb = new StringBuilder();
         sb.append("Hello ").append(username).append(".\n");
@@ -64,6 +81,12 @@ public class EmailService {
         return sb.toString();
     }
 
+    /**
+     * Method that sends alerts to all the user in alerts.txt
+     * loads all users with their portfolios
+     * sends each one an email with portfolio info
+     * @return boolean value used for testing
+     */
     public static boolean emailAlerts() {
         List<User> users = AlertManager.loadAlertUsers();
         try {

@@ -1,3 +1,8 @@
+/**
+ * Represents user with a portfolio
+ * @author Oleg Bazylnikov
+ * @date 03/22/2021
+ */
 package pw.bazz.Model;
 
 import org.apache.commons.io.FileUtils;
@@ -28,6 +33,12 @@ public class User {
         this.username = username;
     }
 
+    /**
+     * creates a user with an empty portfolio
+     * uses scanner to get username and email
+     * not validates any data
+     * @return User object with empty portfolio
+     */
     public static User createEmptyUser(){
         System.out.println("Enter username: ");
         String username = input.nextLine();
@@ -36,6 +47,10 @@ public class User {
         return new User(email, username);
     }
 
+    /**
+     * creates user with portfolio that is loaded from the file that matches user's username
+     * @return User object with portfolio from matching file
+     */
     public static User createUser(){
         User user = createEmptyUser();
         String pfName = user.getName();
@@ -44,6 +59,13 @@ public class User {
         saveUser(user);
         return user;
     }
+
+    /**
+     * creates user with provided credentials and loads appropriate file
+     * @param name username
+     * @param email user's email
+     * @return user object with appropriate portfolio
+     */
     public static User createUser(String name, String email){
         User user = new User(email, name);
         String pfName = user.getName();
@@ -52,6 +74,12 @@ public class User {
         saveUser(user);
         return user;
     }
+
+    /**
+     * Loads user based
+     * asks for username and loads user from "<USERNAME>_user.txt" with appropriate portfolio
+     * @return
+     */
     public static User loadUser(){
         System.out.println("Enter user name: ");
         String username = input.nextLine();
@@ -73,6 +101,11 @@ public class User {
         user.setPortfolio(pf);
         return user;
     }
+
+    /**
+     * saves user info in *usernaem*_user.txt file
+     * @param user that needs to be saved
+     */
     public static void saveUser(User user){
         File f = new File(user.getName()+"_user.txt");
         try{

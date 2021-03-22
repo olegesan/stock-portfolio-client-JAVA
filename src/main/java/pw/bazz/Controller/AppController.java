@@ -1,3 +1,8 @@
+/**
+ * AppController main class in the applications that has the main method
+ * @author Oleg Bazylnikov
+ * @date 03/22/2021
+ */
 package pw.bazz.Controller;
 
 import pw.bazz.Model.Stock;
@@ -14,7 +19,9 @@ public class AppController {
     private static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
         System.out.println(Arrays.toString(args));
-        if(args[1].equals("server")){
+        System.out.println(System.getProperty("user.dir"));
+        if(args.length > 0){
+            if(args[0].equals("server"))
             serverRun();
         }
         else{
@@ -22,6 +29,10 @@ public class AppController {
         }
 
     }
+
+    /**
+     * Runs client logic that is used to manage portfolio by the user
+     */
     public static void clientRun(){
         state = "main";
         while(!state.equals("exit")){
@@ -37,6 +48,12 @@ public class AppController {
             handleAction();
         }
     }
+
+    /**
+     * Gets user input and based on the current state handles the actions(user input)
+     * this is not false proofed. In case of a wrong input a chance of crashing is high.
+     * TODO: fix it.
+     */
     public static void handleAction(){
         String userInput = input.nextLine();
         switch(state){
@@ -89,11 +106,17 @@ public class AppController {
         }
     }
 
+    /**
+     * sets state to exit and prints out exit message
+     */
     public static void exit(){
         ui.displayExit();
         state = "exit";
     }
 
+    /**
+     * runs server logic that is used to send out email alerts
+     */
     public static void serverRun(){
         EmailService.emailAlerts();
     }

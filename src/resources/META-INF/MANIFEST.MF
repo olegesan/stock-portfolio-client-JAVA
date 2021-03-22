@@ -1,0 +1,2 @@
+Main-Class: pw.bazz.Controller.AppController
+

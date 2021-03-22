@@ -1,3 +1,8 @@
+/**
+ * Represents stock in a portfolio
+ * @author Oleg Bazylnikov
+ * @date 03/22/2021
+ */
 package pw.bazz.Model;
 
 import pw.bazz.Controller.StockService;
@@ -20,6 +25,12 @@ public class Stock {
         this.shares = 0L;
     }
 
+    /**
+     * Provided ticker and number of shares it fetches the price of the stock automatically.
+     * Use this constructor.
+     * @param ticker of the stock
+     * @param shares long number of shares
+     */
     public Stock(String ticker, long shares){
         this.ticker = ticker;
         this.shares = shares;
@@ -38,6 +49,9 @@ public class Stock {
         price = BigDecimal.valueOf(newPrice);
     }
 
+    /**
+     * using yahoo finance library updates the price of the current stock
+     */
     public void fetchPrice(){
         setPrice(StockService.getPrice(ticker).doubleValue());
     }
@@ -50,6 +64,10 @@ public class Stock {
         this.shares = shares;
     }
 
+    /**
+     * provides worth which is "number of shares"*"price per share"
+     * @return BigDecimal worth of the shares of the given stock
+     */
     public BigDecimal getWorth(){
         return price.multiply(BigDecimal.valueOf(shares));
     }
